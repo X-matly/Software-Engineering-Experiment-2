@@ -1,28 +1,25 @@
-#include <iostream>
-#include <fstream>
-#include <stdlib.h>
-#include <time.h>
-#include <sstream>
-using namespace std;
+#include "equivalence.h"
 
 string dir = "abcdefghijklmnopqrstuvwxzyABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-int main()
+void makeFile(string name)
 {
     srand((unsigned)time(NULL));
     fstream file;
     fstream outfile;
-    file.open("./input/4A/stdin_format.txt", ios::in);
-    outfile.open("./input/4A/output.txt", ios::out);
+    string temp = "./input/" + name + "/stdin_format.txt";
+    file.open(temp, ios::in);
+    temp = "./input/" + name + "/output.txt";
+    outfile.open(temp, ios::out);
     if (!file.is_open())
     {
         cout << "File open failed!" << endl;
-        return -1;
+        return;
     }
     if (!outfile.is_open())
     {
         cout << "OutFile open failed!" << endl;
-        return -1;
+        return;
     }
     string buf;
     while (getline(file, buf))
@@ -98,6 +95,7 @@ int main()
             }
         }
     }
-
-    return 0;
+    file.close();
+    outfile.close();
+    return;
 }
