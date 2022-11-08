@@ -4,6 +4,9 @@
 #include <time.h>
 #include <sstream>
 #include <string.h>
+#include <map>
+#include <vector>
+#define TIMES 1
 
 using namespace std;
 
