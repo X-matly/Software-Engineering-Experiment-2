@@ -48,10 +48,11 @@ void dealLocalFileName()
         {
             if (m[m.length() - 1] == 'p')
             {
-                m += ".txt";
-                vec.push_back(m);
+                string w = m.substr(0, m.length() - 4);
+                vec.push_back(w);
             }
         }
+        f.close();
         for (int i = 0; i < vec.size(); i++)
         {
             for (int j = i + 1; j < vec.size(); j++)
@@ -60,45 +61,40 @@ void dealLocalFileName()
                 mapfile[o] = 0;
             }
         }
+        /*for (auto &it : mapfile)
+        {
+            cout << it.first << " " << it.second << endl;
+        }*/
+        bool check = false;
         for (int times = 0; times < TIMES; times++)
         {
             makeFile(temp);
-            runOJProgram(temp);
+            runOJProgram(temp, vec, check);
+            check = true;
         }
     }
     file.close();
     return;
 }
 
-void runOJProgram(string name)
+void runOJProgram(string name, vector<string> &vec, bool check)
 {
-    map<string, int> mapfile;
-    fstream file;
-    string temp = name + "FileName.txt";
-    file.open(temp, ios::in);
-    if (file.fail())
+    char command[200];
+    for (int i = 0; i < vec.size(); i++)
     {
-        cout << temp << "open failed!" << endl;
-        return;
-    }
-    while (getline(file, temp))
-    {
-        if (temp[temp.length() - 1] == 'p')
+        if (!check)
         {
-            mapfile[temp] = 0;
-            char command[200];
-            string t = "g++ ./input/" + name + "/" + temp;
+            string t = "g++ -o ./input/" + name + "/" + vec[i] + " ./input/" + name + "/" + vec[i] + ".cpp";
             strcpy(command, t.c_str());
-            // cout << command << endl;
-            system(command);
-            t = "./a.out < ./input/" + name + "/output.txt > " + "./input/" + name + "/" + temp + ".txt 2>&1";
-            strcpy(command, t.c_str());
-            // cout << command << endl;
+            cout << command << endl;
             system(command);
         }
+        string t = "./input/" + name + "/" + vec[i] + " < ./input/" + name + "/output.txt > " + "./input/" + name + "/" + vec[i] + ".txt 2>&1";
+        strcpy(command, t.c_str());
+        cout << command << endl;
+        system(command);
     }
-    file.close();
-    system("rm -f a.out");
+
     // cout << "rm -f a.out" << endl;
     return;
 }
