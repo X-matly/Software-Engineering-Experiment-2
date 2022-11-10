@@ -72,7 +72,7 @@ void dealLocalFileName()
             analysisOJProgram(vec, mapfile, temp);
             check = true;
         }
-        inputcsv(mapfile, temp, vis);
+        inputcsv(vec, mapfile, temp, vis);
         deleteFile(temp, vec, vis);
         vis = true;
     }

@@ -21,7 +21,7 @@ void deleteFile(string temp, vector<string> vec, bool check)
     return;
 }
 
-void inputcsv(map<string, int> &mapfile, string filename, bool check) //输入结果至csv文件
+void inputcsv(vector<string> vec, map<string, int> &mapfile, string filename, bool check) //输入结果至csv文件
 {
     fstream file1;
     fstream file2;
@@ -42,7 +42,7 @@ void inputcsv(map<string, int> &mapfile, string filename, bool check) //输入�
         file1 << "file1,file2\n";
         file2 << "file1,file2\n";
     }
-    for (auto &it : mapfile)
+    /*for (auto &it : mapfile)
     {
         if (it.second)
         {
@@ -51,6 +51,22 @@ void inputcsv(map<string, int> &mapfile, string filename, bool check) //输入�
         else
         {
             file2 << it.first << '\n';
+        }
+    }*/
+    for (int i = 0; i < vec.size(); i++)
+    {
+        for (int j = i + 1; j < vec.size(); j++)
+        {
+            string temp1 = vec[i] + ".cpp," + vec[j] + ".cpp";
+            string temp2 = "input/" + filename + "/" + vec[i] + ".cpp,input/" + filename + "/" + vec[j] + ".cpp";
+            if (mapfile[temp1])
+            {
+                file1 << temp2 << '\n';
+            }
+            else
+            {
+                file2 << temp2 << '\n';
+            }
         }
     }
     file1.close();
