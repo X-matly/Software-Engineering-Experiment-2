@@ -1,5 +1,4 @@
-#include "localfile.h"
-#include "equivalence.h"
+#include "runOJProgram.h"
 
 void getLocalFileName()
 {
@@ -26,7 +25,7 @@ void getSpecificFileName(string filename)
 
 void dealLocalFileName()
 {
-
+    system("mkdir output");
     fstream file;
     file.open("./inputName.txt", ios::in);
     if (file.fail())
@@ -35,6 +34,7 @@ void dealLocalFileName()
         return;
     }
     string temp;
+    bool vis = false;
     while (getline(file, temp)) //获取dir文件夹名称
     {
         getSpecificFileName(temp); //获取dir文件夹内容
@@ -57,27 +57,23 @@ void dealLocalFileName()
         {
             for (int j = i + 1; j < vec.size(); j++)
             {
-                string o = vec[i] + ',' + vec[j];
-                mapfile[o] = 0;
+                string o = vec[i] + ".cpp," + vec[j] + ".cpp";
+                mapfile[o] = 1;
             }
         }
-        /*for (auto &it : mapfile)
-        {
-            cout << it.first << " " << it.second << endl;
-        }*/
         bool check = false;
         for (int times = 0; times < TIMES; times++)
         {
-            makeFile(temp);
-            runOJProgram(temp, vec, check);
+            runOJProgram(temp, vec, check); //运行OJ文件
             check = true;
         }
+        vis = true;
     }
     file.close();
     return;
 }
 
-void runOJProgram(string name, vector<string> &vec, bool check)
+void runOJProgram(string name, vector<string> &vec, bool check) //运行文件并产生结果
 {
     char command[200];
     for (int i = 0; i < vec.size(); i++)
@@ -86,12 +82,12 @@ void runOJProgram(string name, vector<string> &vec, bool check)
         {
             string t = "g++ -o ./input/" + name + "/" + vec[i] + " ./input/" + name + "/" + vec[i] + ".cpp";
             strcpy(command, t.c_str());
-            cout << command << endl;
+            // cout << command << endl;
             system(command);
         }
         string t = "./input/" + name + "/" + vec[i] + " < ./input/" + name + "/output.txt > " + "./input/" + name + "/" + vec[i] + ".txt 2>&1";
         strcpy(command, t.c_str());
-        cout << command << endl;
+        // cout << command << endl;
         system(command);
     }
 

@@ -6,7 +6,7 @@
 #include <string.h>
 #include <map>
 #include <vector>
-#define TIMES 1
+#define TIMES 10
 
 using namespace std;
 
