@@ -1,4 +1,6 @@
 #include "runOJProgram.h"
+#include "equivalence.h"
+#include "judgeOJProgram.h"
 
 void getLocalFileName()
 {
@@ -25,6 +27,7 @@ void getSpecificFileName(string filename)
 
 void dealLocalFileName()
 {
+    getLocalFileName();
     system("mkdir output");
     fstream file;
     file.open("./inputName.txt", ios::in);
@@ -64,9 +67,13 @@ void dealLocalFileName()
         bool check = false;
         for (int times = 0; times < TIMES; times++)
         {
+            makeFile(temp);
             runOJProgram(temp, vec, check); //运行OJ文件
+            analysisOJProgram(vec, mapfile, temp);
             check = true;
         }
+        inputcsv(mapfile, temp, vis);
+        deleteFile(temp, vec, vis);
         vis = true;
     }
     file.close();

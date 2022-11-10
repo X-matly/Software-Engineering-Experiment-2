@@ -17,6 +17,7 @@ void deleteFile(string temp, vector<string> vec, bool check)
         q += ".txt";
         system(q.c_str());
     }
+    system("rm -f main judgeOJProgram");
     return;
 }
 
