@@ -4,6 +4,8 @@
         "unordered_map": "cpp",
         "unordered_set": "cpp",
         "ostream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "typeindex": "cpp",
+        "typeinfo": "cpp"
     }
 }
