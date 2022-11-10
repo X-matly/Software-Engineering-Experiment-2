@@ -1,1 +1,0 @@
-This .txt is due to show that git status will do what.
